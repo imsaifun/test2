@@ -2,7 +2,7 @@ import Product from '../../models/Product';
 import dbConnect from '../../lib/dbConnect';
 
 export default async function handler(req, resp) {
-    const db = await dbConnect();
+    await dbConnect();
     const { method, body } = req;
 
     if (method !== 'POST') {
