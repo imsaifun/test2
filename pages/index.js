@@ -1,35 +1,44 @@
-import Head from 'next/head';
 import Featured from '../components/Featured';
 import PizzaList from '../components/PizzaList';
-import getDailyEntry from '../lib/getDailyEntry';
-// if (!process.env.NEXT_PUBLIC_HOST_URL) { process.env.NEXT_PUBLIC_HOST_URL = process.env.NEXT_PUBLIC_VERCEL_URL; };
+import dbConnect from '../lib/dbConnect';
+import Product from '../models/Product';
 
 
 
-export default function Home({ todaysEntry, updateDate }) {
-  console.log(todaysEntry);
-  const entryText = JSON.parse(todaysEntry).title;
-
+export default function Home({ products }) {
+  const abc = JSON.parse(products)
+  const xyz = abc.pizzaList
+  {
+    xyz.map((item, i) => {
+      console.log(item.title)
+    })
+  }
   return (
     <>
-      <Head>
-        <title>Pizza Restaurant in Newyork</title>
-        <meta name="description" content="Best pizza shop in town" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+      {xyz.map((item) => (<h1 key={item._id}>{item.title}</h1>))}
       <Featured />
       <PizzaList />
-      {entryText}
+
     </>
   )
 }
 
 
+const getProducts = async function () {
+  await dbConnect();
+  const res = await Product.find();
+
+  return { pizzaList: res }
+}
+
+
 export async function getStaticProps() {
-  const todaysEntry = await getDailyEntry();
+  const products = await getProducts();
+  // console.log(products);
   return {
     props: {
-      todaysEntry: JSON.stringify(todaysEntry),
+      products: JSON.stringify(products)
     }
   }
 }
+
