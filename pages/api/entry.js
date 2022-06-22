@@ -1,4 +1,4 @@
-import EntryModel from '../../models/EntryModel';
+import Product from '../../models/Product';
 import dbConnect from '../../lib/dbConnect';
 
 export default async function handler(req, resp) {
@@ -13,10 +13,10 @@ export default async function handler(req, resp) {
     }
     try {
         const { text } = body;
-        const newEntry = await EntryModel.create({
+        const newEntry = await Product.create({
             text,
-            isNovel: true,
-            isCurrent: false,
+            // isNovel: true,
+            // isCurrent: false,
         })
         // just resp.json
         return resp.send(JSON.stringify('successfully created new entry: ', newEntry));

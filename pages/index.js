@@ -12,7 +12,7 @@ export async function getStaticProps() {
 
 export default function Home({ todaysEntry, updateDate }) {
   console.log(todaysEntry);
-  const entryText = JSON.parse(todaysEntry).text;
+  const entryText = JSON.parse(todaysEntry).title;
 
   return (
     <h1>
