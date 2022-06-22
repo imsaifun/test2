@@ -7,17 +7,12 @@ import Product from '../models/Product';
 
 export default function Home({ products }) {
   const abc = JSON.parse(products)
-  const xyz = abc.pizzaList
-  {
-    xyz.map((item, i) => {
-      console.log(item.title)
-    })
-  }
+  const pizzaList = abc.pizzaList
   return (
     <>
-      {xyz.map((item) => (<h1 key={item._id}>{item.title}</h1>))}
+      
       <Featured />
-      <PizzaList />
+      <PizzaList pizzaList={pizzaList} />
 
     </>
   )
@@ -27,7 +22,6 @@ export default function Home({ products }) {
 const getProducts = async function () {
   await dbConnect();
   const res = await Product.find();
-
   return { pizzaList: res }
 }
 

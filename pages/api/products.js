@@ -3,7 +3,7 @@ import Product from '../../models/Product';
 
 export default async function handler(req, res) {
     await dbConnect();
-    const { method, body } = req;
+    const { method } = req;
 
     if (method !== 'POST') {
         return res.status(400).json({
